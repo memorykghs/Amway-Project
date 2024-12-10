@@ -1,6 +1,5 @@
 package com.exam.project.lottery.service;
 
-import com.exam.project.lottery.enums.PrizeEnum;
 import com.exam.project.lottery.exception.LotteryProcessException;
 import com.exam.project.lottery.vo.Prize;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,15 +9,9 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.random.RandomGenerator;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -44,7 +37,7 @@ class LotterySvcTest {
 
     @InjectMocks
     @Spy
-    private LotterySvc lotterySvc;
+    private LotterySpinSvc lotterySvc;
 
     @BeforeEach
     void setUp() {

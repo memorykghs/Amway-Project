@@ -1,8 +1,9 @@
 package com.exam.project.lottery.controller;
 
+import com.exam.project.lottery.controller.dto.LotteryReq;
+import com.exam.project.lottery.controller.dto.LotteryResp;
 import com.exam.project.lottery.exception.LotteryProcessException;
-import com.exam.project.lottery.service.LotterySvc;
-import com.exam.project.lottery.vo.Prize;
+import com.exam.project.lottery.service.LotterySpinSvc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,14 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class LotteryController {
 
     @Autowired
-    private LotterySvc lotterySvc;
+    private LotterySpinSvc lotterySvc;
 
     @PostMapping("/spin")
-    public Prize spin(@RequestBody String userId) throws LotteryProcessException {
+    public LotteryResp spin(@RequestBody LotteryReq req) throws LotteryProcessException {
+        String userId = req.getUserId();
+
         log.info("user {} spin start", userId);
-        Prize prize = lotterySvc.spin(userId);
+        LotteryResp lotteryResult = lotterySvc.spin(userId, req.getLotteryId());
         log.info("user {} spin end", userId);
 
-        return prize;
+        return lotteryResult;
     }
 }
