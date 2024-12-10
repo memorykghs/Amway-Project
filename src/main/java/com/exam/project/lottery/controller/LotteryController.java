@@ -6,10 +6,7 @@ import com.exam.project.lottery.exception.LotteryProcessException;
 import com.exam.project.lottery.service.LotterySpinSvc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author memorykghs
@@ -30,6 +27,17 @@ public class LotteryController {
         log.info("user {} spin start", userId);
         LotteryResp lotteryResult = lotterySvc.spin(userId, req.getLotteryId());
         log.info("user {} spin end", userId);
+
+        return lotteryResult;
+    }
+
+    @GetMapping("/init")
+    public LotteryResp initLottery(@RequestBody LotteryReq req) throws LotteryProcessException {
+        String lotteryId = req.getLotteryId();
+
+        log.info("lottery {} init start", lotteryId);
+        LotteryResp lotteryResult = lotterySvc.spin(lotteryId, req.getLotteryId());
+        log.info("lotteryId {} init end", lotteryId);
 
         return lotteryResult;
     }
